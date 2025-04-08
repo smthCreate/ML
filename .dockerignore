@@ -1,3 +1,4 @@
 *.scv
 *.ipynb
 *.md
+.git

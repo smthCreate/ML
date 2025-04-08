@@ -9,10 +9,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Сначала копируем только requirements.txt и устанавливаем зависимости
-COPY ./requirements.txt /app
+COPY ./ml/requirements.txt /app
 RUN pip3 install -r requirements.txt
 
 # Затем копируем остальной код
-COPY ./ /app
+COPY ./ml /app
 
 CMD ["python3", "app_api.py"]

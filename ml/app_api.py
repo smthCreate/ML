@@ -7,7 +7,7 @@ import uvicorn
 app = FastAPI()
 
 # Загрузка модели из файла pickle
-with open('ml/clf_model.pkl', 'rb') as f:
+with open('clf_model.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # Счетчик запросов

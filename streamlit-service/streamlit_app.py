@@ -55,37 +55,38 @@ if st.button("Predict"):
             "Vehicle_Damage": int( 1 if vehicle_damage else 0),
         }
 
-        # Преобразуем данные в формат numpy для применения скалера
-        data_array = np.array([list(data.values())])
+        # # Преобразуем данные в формат numpy для применения скалера
+        # data_array = np.array([list(data.values())])
+        #
+        # # Загружаем scaler
+        # scaler = load_scaler()
+        # if scaler:
+        #     # Масштабируем данные
+        #     scaled_data = scaler.transform(data_array)
+        #
+        #     # Преобразуем масштабированные данные обратно в список для отправки
+        #     scaled_data_dict = {
+        #         "Is_Male": scaled_data[0][0],
+        #         "Age": scaled_data[0][1],
+        #         "Previously_Insured": scaled_data[0][2],
+        #         "Vehicle_Age": scaled_data[0][3],
+        #         "Vehicle_Damage": scaled_data[0][4],
+        #     }
+        #
+        # else:
+        #     st.error("Failed to load scaler.")
 
-        # Загружаем scaler
-        scaler = load_scaler()
-        if scaler:
-            # Масштабируем данные
-            scaled_data = scaler.transform(data_array)
+        try:
+            # Отправка запроса к Flask API
+            response = requests.post(f"http://{ip_api}:{port_api}/predict_model", json=data)
 
-            # Преобразуем масштабированные данные обратно в список для отправки
-            scaled_data_dict = {
-                "Is_Male": scaled_data[0][0],
-                "Age": scaled_data[0][1],
-                "Previously_Insured": scaled_data[0][2],
-                "Vehicle_Age": scaled_data[0][3],
-                "Vehicle_Damage": scaled_data[0][4],
-            }
-
-            try:
-                # Отправка запроса к Flask API
-                response = requests.post(f"http://{ip_api}:{port_api}/predict_model", json=scaled_data_dict)
-
-                # Проверка статуса ответа
-                if response.status_code == 200:
-                    prediction = response.json()["prediction"]
-                    st.success(f"Prediction: {prediction}")
-                else:
-                    st.error(f"Request failed with status code {response.status_code}")
-            except ConnectionError as e:
-                st.error(f"Failed to connect to the server")
-        else:
-            st.error("Failed to load scaler.")
+            # Проверка статуса ответа
+            if response.status_code == 200:
+                prediction = response.json()["prediction"]
+                st.success(f"Prediction: {prediction}")
+            else:
+                st.error(f"Request failed with status code {response.status_code}")
+        except ConnectionError as e:
+            st.error(f"Failed to connect to the server")
     else:
         st.error("Please fill in all fields with valid numbers.")

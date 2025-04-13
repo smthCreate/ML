@@ -16,12 +16,10 @@ request_count = 0
 class PredictionInput(BaseModel):
     Is_Male: bool
     Age: int
-    Driving_License: bool
     Previously_Insured: bool
     Vehicle_Age: int
     Vehicle_Damage: bool
-    Annual_Premium: float
-    Vintage: int
+
 
 @app.get("/stats")
 def stats():
@@ -40,12 +38,9 @@ def predict_model(input_data: PredictionInput):
     new_data = pd.DataFrame({
         'Is_Male': [input_data.Is_Male],
         'Age': [input_data.Age],
-        'Driving_License': [input_data.Driving_License],
         'Previously_Insured': [input_data.Previously_Insured],
         'Vehicle_Age': [input_data.Vehicle_Age],
         'Vehicle_Damage': [input_data.Vehicle_Damage],
-        'Annual_Premium': [input_data.Annual_Premium],
-        'Vintage': [input_data.Vintage],
 
     })
 

@@ -4,6 +4,7 @@ import numpy as np
 import streamlit as st
 import requests
 from requests.exceptions import ConnectionError
+from sklearn.preprocessing import StandardScaler
 
 
 # Загрузка scaler для масштабирования
@@ -49,9 +50,9 @@ if st.button("Predict"):
         data = {
             "Is_Male": int( 1 if is_male == "Male" else 0),  # Нормализованные данные
             "Age": int(age),
-            "Previously_Insured": int( 1 if previously_insured == True else 0),
+            "Previously_Insured": int( 1 if previously_insured else 0),
             "Vehicle_Age": int(0 if vehicle_age == "< 1 Year" else (1 if vehicle_age == "1-2 Year" else 2)),
-            "Vehicle_Damage": int( 1 if vehicle_damage == True else 0),
+            "Vehicle_Damage": int( 1 if vehicle_damage else 0),
         }
 
         # Преобразуем данные в формат numpy для применения скалера

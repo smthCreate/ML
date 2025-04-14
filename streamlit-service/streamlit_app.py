@@ -1,11 +1,9 @@
 import pickle
-
 import numpy as np
 import streamlit as st
 import requests
 from requests.exceptions import ConnectionError
 from sklearn.preprocessing import StandardScaler
-
 
 # Загрузка scaler для масштабирования
 def load_scaler():
@@ -36,9 +34,7 @@ if not age.isdigit():
 
 
 previously_insured = st.selectbox("Previously Insured", [True,False])
-
 vehicle_age = st.selectbox("Vehicle age", ["< 1 Year","1-2 Year","> 2 Years"])
-
 vehicle_damage = st.selectbox("Vehicle Damage", [True,False])
 
 
@@ -86,7 +82,6 @@ if st.button("Predict"):
                 st.error(f"Failed to connect to the server")
         else:
             st.error("Failed to load scaler.")
-
 
     else:
         st.error("Please fill in all fields with valid numbers.")

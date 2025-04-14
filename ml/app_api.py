@@ -14,11 +14,11 @@ with open('clf_model.pkl', 'rb') as f:
 request_count = 0
 # Модель для валидации входных данных
 class PredictionInput(BaseModel):
-    Is_Male: bool
-    Age: int
-    Previously_Insured: bool
-    Vehicle_Age: int
-    Vehicle_Damage: bool
+    Is_Male: float
+    Age: float
+    Previously_Insured: float
+    Vehicle_Age: float
+    Vehicle_Damage: float
 
 
 @app.get("/stats")
